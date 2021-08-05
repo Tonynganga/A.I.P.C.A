@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfileActivity">
+
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/main_appbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="40dp"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_bar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@color/colorAccent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profileImage"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:src="@drawable/profile"
+                app:layout_constraintBottom_toBottomOf="@+id/view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view" />
+
+            <EditText
+                android:id="@+id/inputusernameprofile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:ems="10"
+                android:fontFamily="sans-serif"
+                android:hint="Username"
+                android:inputType="textPersonName"
+                android:textColorHint="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/profileImage" />
+
+            <EditText
+                android:id="@+id/inputphone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="Phone Number"
+                android:inputType="textPersonName"
+                android:textColorHint="@color/black"
+                app:layout_constraintEnd_toEndOf="@+id/inputusernameprofile"
+                app:layout_constraintStart_toStartOf="@+id/inputusernameprofile"
+                app:layout_constraintTop_toBottomOf="@+id/inputusernameprofile" />
+
+            <EditText
+                android:id="@+id/inputLocation"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="Location"
+                android:inputType="textPersonName"
+                android:textColorHint="@color/black"
+                app:layout_constraintEnd_toEndOf="@+id/inputphone"
+                app:layout_constraintStart_toStartOf="@+id/inputphone"
+                app:layout_constraintTop_toBottomOf="@+id/inputphone" />
+
+            <EditText
+                android:id="@+id/inputlevel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="Level In Church(eg Elder)"
+                android:inputType="textPersonName"
+                android:textColorHint="@color/black"
+                app:layout_constraintEnd_toEndOf="@+id/inputLocation"
+                app:layout_constraintStart_toStartOf="@+id/inputLocation"
+                app:layout_constraintTop_toBottomOf="@+id/inputLocation" />
+
+            <Button
+                android:id="@+id/buttonsave"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/btn_bg"
+                android:text="Save"
+                android:textAllCaps="false"
+                android:textSize="18sp"
+                app:backgroundTint="@color/colorAccent"
+                app:layout_constraintEnd_toEndOf="@+id/inputlevel"
+                app:layout_constraintStart_toStartOf="@+id/inputlevel"
+                app:layout_constraintTop_toBottomOf="@+id/inputlevel" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

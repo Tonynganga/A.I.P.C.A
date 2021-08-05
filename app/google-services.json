@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "740613223241",
+    "project_id": "a-i-p-c-a",
+    "storage_bucket": "a-i-p-c-a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:740613223241:android:d6b98d4ee1c3697dc1a098",
+        "android_client_info": {
+          "package_name": "com.tony.aipca"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "740613223241-eb0ql2joi13pm5ffern55fpe4gv7tfv5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlHOwjI-KbhaaaWQpD8aKyCb5dmgBKxbo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "740613223241-eb0ql2joi13pm5ffern55fpe4gv7tfv5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
