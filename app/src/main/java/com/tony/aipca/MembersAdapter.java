@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.tony.aipca.Utils.CommitteeMembers;
+import com.tony.aipca.Utils.MemberModel;
 
 import java.util.ArrayList;
 
@@ -20,10 +21,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.MyViewHolder> {
 
-    ArrayList<CommitteeMembers> mList;
+    ArrayList<MemberModel> mList;
     Context context;
 
-    public MembersAdapter(Context context , ArrayList<CommitteeMembers> mList){
+    public MembersAdapter(Context context , ArrayList<MemberModel> mList){
         this.mList = mList;
         this.context = context;
     }
@@ -37,7 +38,7 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        CommitteeMembers model = mList.get(position);
+        MemberModel model = mList.get(position);
         holder.membername.setText(model.getMembername());
         holder.memberposition.setText(model.getMemberposition());
         holder.membercontact.setText(model.getMemberphone());

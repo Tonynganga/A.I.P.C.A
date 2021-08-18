@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/btndatepicker"
+        app:cardCornerRadius="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="5dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/btncancelreading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/btn_bg"
+                android:text="Cancel"
+                android:textAllCaps="false"
+                app:backgroundTint="@color/colorAccent"
+                app:layout_constraintEnd_toEndOf="@+id/edtkikuyuiinjili"
+                app:layout_constraintStart_toEndOf="@+id/btnsavereading"
+                app:layout_constraintTop_toBottomOf="@+id/edtkikuyuiinjili" />
+
+            <EditText
+                android:id="@+id/edtkiswahiliinjili"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/btn_bg"
+                android:backgroundTint="@color/lightGray"
+                android:ems="10"
+                android:hint="Kiswahili"
+                android:inputType="textPersonName"
+                android:padding="7dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                app:layout_constraintEnd_toEndOf="@+id/edtenglishinjili"
+                app:layout_constraintStart_toStartOf="@+id/edtenglishinjili"
+                app:layout_constraintTop_toBottomOf="@+id/edtenglishinjili" />
+
+            <EditText
+                android:id="@+id/readingday"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/btn_bg"
+                android:ems="10"
+                android:hint="Enter Day(Sunday)"
+                android:inputType="textPersonName"
+                android:padding="7dp"
+                app:backgroundTint="@color/lightGray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView3"
+                app:layout_constraintWidth_percent=".8" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/abril_fatface"
+                android:text="ADD A READING"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/btnselectdate"
+                android:layout_width="125dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/btn_bg"
+                android:text="Select Date"
+                android:textAllCaps="false"
+                app:backgroundTint="@color/colorAccent"
+                app:layout_constraintStart_toStartOf="@+id/readingday"
+                app:layout_constraintTop_toBottomOf="@+id/readingday" />
+
+            <EditText
+                android:id="@+id/readingdate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/btn_bg"
+                android:ems="10"
+                android:hint="Date"
+                android:inputType="textPersonName"
+                android:padding="7dp"
+                app:backgroundTint="@color/lightGray"
+                app:layout_constraintEnd_toEndOf="@+id/readingday"
+                app:layout_constraintStart_toEndOf="@+id/btnselectdate"
+                app:layout_constraintTop_toBottomOf="@+id/readingday" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/abril_fatface"
+                android:text="Reading"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="@+id/readingdate"
+                app:layout_constraintStart_toStartOf="@+id/btnselectdate"
+                app:layout_constraintTop_toBottomOf="@+id/readingdate" />
+
+            <EditText
+                android:id="@+id/edtenglishreading"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/btn_bg"
+                android:backgroundTint="@color/lightGray"
+                android:ems="10"
+                android:hint="English"
+                android:inputType="textPersonName"
+                android:padding="7dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView4"
+                app:layout_constraintWidth_percent=".7" />
+
+            <EditText
+                android:id="@+id/edtkiswahilireading"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/btn_bg"
+                android:backgroundTint="@color/lightGray"
+                android:ems="10"
+                android:hint="Kiswahili"
+                android:inputType="textPersonName"
+                android:padding="7dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                app:layout_constraintEnd_toEndOf="@+id/edtenglishreading"
+                app:layout_constraintStart_toStartOf="@+id/edtenglishreading"
+                app:layout_constraintTop_toBottomOf="@+id/edtenglishreading" />
+
+            <EditText
+                android:id="@+id/edtkikuyureading"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/btn_bg"
+                android:backgroundTint="@color/lightGray"
+                android:ems="10"
+                android:hint="Kikuyu"
+                android:inputType="textPersonName"
+                android:padding="7dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                app:layout_constraintEnd_toEndOf="@+id/edtkiswahilireading"
+                app:layout_constraintStart_toStartOf="@+id/edtkiswahilireading"
+                app:layout_constraintTop_toBottomOf="@+id/edtkiswahilireading" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/abril_fatface"
+                android:text="Injili"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="@+id/edtkikuyureading"
+                app:layout_constraintStart_toStartOf="@+id/edtkikuyureading"
+                app:layout_constraintTop_toBottomOf="@+id/edtkikuyureading" />
+
+            <EditText
+                android:id="@+id/edtenglishinjili"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/btn_bg"
+                android:backgroundTint="@color/lightGray"
+                android:ems="10"
+                android:hint="English"
+                android:inputType="textPersonName"
+                android:padding="7dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView8"
+                app:layout_constraintWidth_percent=".7" />
+
+            <EditText
+                android:id="@+id/edtkikuyuiinjili"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/btn_bg"
+                android:backgroundTint="@color/lightGray"
+                android:ems="10"
+                android:hint="Kikuyu"
+                android:inputType="textPersonName"
+                android:padding="7dp"
+                android:textColorHint="@color/black"
+                app:layout_constraintEnd_toEndOf="@+id/edtkiswahiliinjili"
+                app:layout_constraintStart_toStartOf="@+id/edtkiswahiliinjili"
+                app:layout_constraintTop_toBottomOf="@+id/edtkiswahiliinjili"
+                android:textColor="@color/black" />
+
+            <Button
+                android:id="@+id/btnsavereading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/btn_bg"
+                android:text="Save"
+                android:textAllCaps="false"
+                app:backgroundTint="@color/colorAccent"
+                app:layout_constraintEnd_toStartOf="@+id/btncancelreading"
+                app:layout_constraintHorizontal_bias="0.25"
+                app:layout_constraintStart_toStartOf="@+id/edtkikuyuiinjili"
+                app:layout_constraintTop_toBottomOf="@+id/edtkikuyuiinjili" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.core.widget.NestedScrollView>

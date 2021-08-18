@@ -63,7 +63,7 @@ public class CommitteeActivity extends AppCompatActivity {
 
     private DatabaseReference retrieveMember;
     private MembersAdapter membersAdapter;
-    private ArrayList<CommitteeMembers> list;
+    private ArrayList<MemberModel> list;
 
 
     @Override
@@ -87,12 +87,21 @@ public class CommitteeActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(membersAdapter);
 
+        LoadingBar = new ProgressDialog(this);
+
+        String userPhone = mUser.getPhoneNumber();
+        if (userPhone.equals("0722114014")){
+            addmember.setVisibility(View.INVISIBLE);
+        }else {
+            addmember.setVisibility(View.VISIBLE);
+        }
+
         retrieveMember.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                list.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    CommitteeMembers model = dataSnapshot.getValue(CommitteeMembers.class);
+                    MemberModel model = dataSnapshot.getValue(MemberModel.class);
                     list.add(model);
                 }
                 membersAdapter.notifyDataSetChanged();
@@ -105,190 +114,133 @@ public class CommitteeActivity extends AppCompatActivity {
         });
 
 
-        LoadingBar = new ProgressDialog(this);
-        addmember = findViewById(R.id.fABAaddmember);
-
-        addmember.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                createMemberDialog();
-            }
-        });
-
-
-
     }
 
-    public void createMemberDialog(){
-        dialogBuilder = new AlertDialog.Builder(this);
-        final View memberView = getLayoutInflater().inflate(R.layout.addcommember, null);
-        comMName = memberView.findViewById(R.id.addmem_name);
-        comMPosition = memberView.findViewById(R.id.addmem_position);
-        comMPhone = memberView.findViewById(R.id.addmem_phone);
-        comMLocation = memberView.findViewById(R.id.addmem_location);
-        comMSave = memberView.findViewById(R.id.btnmem_save);
-        comMCancel = memberView.findViewById(R.id.btnmem_cancel);
-        comMemPhoto = memberView.findViewById(R.id.addmem_imageview);
-        comMPhotoSelect = memberView.findViewById(R.id.btnselectphoto);
+//    public void createMemberDialog(){
+//        dialogBuilder = new AlertDialog.Builder(this);
+//        final View memberView = getLayoutInflater().inflate(R.layout.addcommember, null);
+//        comMName = memberView.findViewById(R.id.addmem_name);
+//        comMPosition = memberView.findViewById(R.id.addmem_position);
+//        comMPhone = memberView.findViewById(R.id.addmem_phone);
+//        comMLocation = memberView.findViewById(R.id.addmem_location);
+//        comMSave = memberView.findViewById(R.id.btnmem_save);
+//        comMCancel = memberView.findViewById(R.id.btnmem_cancel);
+//        comMemPhoto = memberView.findViewById(R.id.addmem_imageview);
+//        comMPhotoSelect = memberView.findViewById(R.id.btnselectphoto);
+//
+//
+//
+//        dialogBuilder.setView(memberView);
+//        dialog = dialogBuilder.create();
+//        dialog.show();
+//
+//        comMCancel.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialog.dismiss();
+//            }
+//        });
+//
+//
+//        comMPhotoSelect.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+//                intent.setType("image/*");
+//                startActivityForResult(intent, REQUEST_CODE);
+//            }
+//        });
+//        comMSave.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (imageUri != null){
+//                    saveCommitteeMember(imageUri);
+//                }else{
+//                    Toast.makeText(CommitteeActivity.this, "Please Select Image", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+//
+//    }
 
-
-
-        dialogBuilder.setView(memberView);
-        dialog = dialogBuilder.create();
-        dialog.show();
-
-        comMCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-
-        comMPhotoSelect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/*");
-                startActivityForResult(intent, REQUEST_CODE);
-            }
-        });
-        comMSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (imageUri != null){
-                    saveCommitteeMember(imageUri);
-                }else{
-                    Toast.makeText(CommitteeActivity.this, "Please Select Image", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-    }
-
-    private void saveCommitteeMember(Uri uri) {
-        String membername = comMName.getText().toString();
-        String memberposition = comMPosition.getText().toString();
-        String memberphone = comMPhone.getText().toString();
-        String memberlocation = comMLocation.getText().toString();
-
-        if (membername.isEmpty() || membername.length() < 3){
-            showError(comMName, "Name is not valid!! Must be more then 3 characters.");
-        }else  if (memberposition.isEmpty()){
-            showError(comMPosition, "Position can not be null");
-        }else if (memberphone.isEmpty() || memberphone.length()<10){
-            showError(comMPhone, "Phone number not valid!!");
-        }else if (memberlocation.isEmpty()){
-            showError(comMLocation, "Location cannot be null!!");
-        }else if (imageUri == null){
-            Toast.makeText(this, "Please Select an Image!!", Toast.LENGTH_SHORT).show();
-        }else {
-            LoadingBar.setTitle("Saving Member");
-            LoadingBar.setMessage("Please Wait a Moment.");
-            LoadingBar.setCanceledOnTouchOutside(false);
-            LoadingBar.show();
-
-            final StorageReference fileRef = mMemRef.child(System.currentTimeMillis() + "." + getFileExtension(uri));
-            fileRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            MemberModel memberModel = new MemberModel(membername, memberposition, memberphone, memberlocation, uri.toString());
-                            String modelId = mMemberRef.push().getKey();
-                            mMemberRef.child(modelId).setValue(memberModel);
-                            LoadingBar.dismiss();
-                            comMName.setText("");
-                            comMPosition.setText("");
-                            comMPhone.setText("");
-                            comMLocation.setText("");
-                            comMemPhoto.setImageURI(null);
-                            Toast.makeText(CommitteeActivity.this, "Saved Successfully!", Toast.LENGTH_SHORT).show();
-
-                        }
-                    });
-                }
-            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    LoadingBar.dismiss();
-                    Toast.makeText(CommitteeActivity.this, "Something Went Wrong.Please try Again!!", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-//            mMemRef.child(mUser.getUid()).putFile(uri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+//    private void saveCommitteeMember(Uri uri) {
+//        String membername = comMName.getText().toString();
+//        String memberposition = comMPosition.getText().toString();
+//        String memberphone = comMPhone.getText().toString();
+//        String memberlocation = comMLocation.getText().toString();
+//
+//        if (membername.isEmpty() || membername.length() < 3){
+//            showError(comMName, "Name is not valid!! Must be more then 3 characters.");
+//        }else  if (memberposition.isEmpty()){
+//            showError(comMPosition, "Position can not be null");
+//        }else if (memberphone.isEmpty() || memberphone.length()<10){
+//            showError(comMPhone, "Phone number not valid!!");
+//        }else if (memberlocation.isEmpty()){
+//            showError(comMLocation, "Location cannot be null!!");
+//        }else if (imageUri == null){
+//            Toast.makeText(this, "Please Select an Image!!", Toast.LENGTH_SHORT).show();
+//        }else {
+//            LoadingBar.setTitle("Saving Member");
+//            LoadingBar.setMessage("Please Wait a Moment.");
+//            LoadingBar.setCanceledOnTouchOutside(false);
+//            LoadingBar.show();
+//
+//            final StorageReference fileRef = mMemRef.child(System.currentTimeMillis() + "." + getFileExtension(uri));
+//            fileRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
 //                @Override
-//                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-//                    if (task.isSuccessful()){
-//                        mMemRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-//                            @Override
-//                            public void onSuccess(Uri uri) {
-//                                HashMap memberHashmap = new HashMap();
-//                                memberHashmap.put("membername", membername);
-//                                memberHashmap.put("memberposition", memberposition);
-//                                memberHashmap.put("memberphone", memberphone);
-//                                memberHashmap.put("memberlocation", memberlocation);
-//                                memberHashmap.put("memberImageUrl", uri.toString());
+//                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                    fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                        @Override
+//                        public void onSuccess(Uri uri) {
+//                            MemberModel memberModel = new MemberModel(membername, memberposition, memberphone, memberlocation, uri.toString());
+//                            String modelId = mMemberRef.push().getKey();
+//                            mMemberRef.child(modelId).setValue(memberModel);
+//                            LoadingBar.dismiss();
+//                            comMName.setText("");
+//                            comMPosition.setText("");
+//                            comMPhone.setText("");
+//                            comMLocation.setText("");
+//                            comMemPhoto.setImageURI(null);
+//                            Toast.makeText(CommitteeActivity.this, "Saved Successfully!", Toast.LENGTH_SHORT).show();
 //
-//                                mMemberRef.push().setValue(memberHashmap).addOnSuccessListener(new OnSuccessListener() {
-//                                    @Override
-//                                    public void onSuccess(Object o) {
-//                                        LoadingBar.dismiss();
-//                                        comMName.setText("");
-//                                        comMPosition.setText("");
-//                                        comMPhone.setText("");
-//                                        comMLocation.setText("");
-//                                        comMemPhoto.setImageURI(null);
-//                                        Toast.makeText(CommitteeActivity.this, "Saved Successfully!", Toast.LENGTH_SHORT).show();
-//
-//                                    }
-//                                }).addOnFailureListener(new OnFailureListener() {
-//                                    @Override
-//                                    public void onFailure(@NonNull Exception e) {
-//                                        LoadingBar.dismiss();
-//                                        Toast.makeText(CommitteeActivity.this, "Something Went Wrong.Please try Again!!", Toast.LENGTH_SHORT).show();
-//
-//                                    }
-//                                });
-//                            }
-//                        });
-//                    }else {
-//                        LoadingBar.dismiss();
-//                        Toast.makeText(CommitteeActivity.this, "Something Went Wrong.Try Again Later!!", Toast.LENGTH_SHORT).show();
-//                    }
+//                        }
+//                    });
+//                }
+//            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+//                @Override
+//                public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
 //
 //                }
+//            }).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception e) {
+//                    LoadingBar.dismiss();
+//                    Toast.makeText(CommitteeActivity.this, "Something Went Wrong.Please try Again!!", Toast.LENGTH_SHORT).show();
+//                }
 //            });
+//
+//        }
+//    }
 
-        }
-    }
-
-    private void showError(EditText input, String s) {
-        input.setError(s);
-        input.requestFocus();
-    }
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data!=null){
-            imageUri = data.getData();
-            comMemPhoto.setImageURI(imageUri);
-        }
-    }
-
-    private String getFileExtension(Uri mUri){
-        ContentResolver cr = getContentResolver();
-        MimeTypeMap mime = MimeTypeMap.getSingleton();
-        return mime.getExtensionFromMimeType(cr.getType(mUri));
-
-    }
+//    private void showError(EditText input, String s) {
+//        input.setError(s);
+//        input.requestFocus();
+//    }
+//
+//
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data!=null){
+//            imageUri = data.getData();
+//            comMemPhoto.setImageURI(imageUri);
+//        }
+//    }
+//
+//    private String getFileExtension(Uri mUri){
+//        ContentResolver cr = getContentResolver();
+//        MimeTypeMap mime = MimeTypeMap.getSingleton();
+//        return mime.getExtensionFromMimeType(cr.getType(mUri));
+//
+//    }
 }
